@@ -1,0 +1,12 @@
+[Unit]
+Description=tmate terminal server 
+
+[Service]
+ExecStartPre=-/usr/bin/docker pull goller/tmate-slave:latest
+ExecStart=/usr/bin/docker run --privileged -t --rm -e PORT=22222 -p 22222:22222 -v /mnt/data/tmate/keys:/keys --name %p goller/tmate-slave:latest 
+ExecStartPost=-/usr/bin/docker rm %p
+ExecStop=-/usr/bin/docker kill %p
+ExecStopPost=-/usr/bin/docker rm %p
+Restart=always
+RestartSec=10
+TimeoutStartSec=5min
