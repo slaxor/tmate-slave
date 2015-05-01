@@ -1,10 +1,10 @@
-#include <execinfo.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <regex.h>
 #include "tmate.h"
 
 #if DEBUG
+#include <execinfo.h>
 
 static int print_resolved_stack_frame(const char *frame)
 {
@@ -54,6 +54,7 @@ static int print_resolved_stack_frame(const char *frame)
 
 void tmate_print_trace(void)
 {
+#if DEBUG
 	void *array[20];
 	size_t size;
 	char **strings;
@@ -65,17 +66,18 @@ void tmate_print_trace(void)
 	tmate_info("============ %zd stack frames ============", size);
 
 	for (i = 1; i < size; i++) {
-#if DEBUG
 		if (print_resolved_stack_frame(strings[i]) < 0)
-#endif
 			tmate_info("%s", strings[i]);
 	}
 
 	free(strings);
+#endif
 }
 
 void tmate_preload_trace_lib(void)
 {
+#if DEBUG
 	void *array[1];
 	backtrace(array, 1);
+#endif
 }

@@ -56,6 +56,7 @@
   typedef unsigned long long uint64_t;
   typedef int mode_t;
 #else /* _MSC_VER */
+  #include <sys/stat.h>
   #include <unistd.h>
   #include <inttypes.h>
 #endif /* _MSC_VER */
