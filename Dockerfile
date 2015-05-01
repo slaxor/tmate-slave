@@ -5,7 +5,7 @@ ADD . /src
 ADD run.sh create_keys.sh /usr/local/bin/
 	
 RUN 	apk update && \
-	apk add ncurses libevent openssh && \
+	apk add ncurses libevent openssh ncurses-terminfo && \
 	apk add git automake autoconf libtool pkgconf build-base zlib-dev openssl-dev libevent-dev ncurses-dev cmake ruby && \
 	cd src && \
 	mkdir -p etc && \
